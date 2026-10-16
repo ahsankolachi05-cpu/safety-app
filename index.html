@@ -11,72 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
     
   <link rel="stylesheet" href="styles.css">
-<script>
-window.IMGDATA = {};
-(function(){
-  var names = ["img0", "img1", "img2"];
-  var mimes = {"img0": "jpeg", "img1": "jpeg", "img2": "jpeg"};
-  var done = 0;
-  function boot(){
-    // set HTML img tags
-    document.querySelectorAll('img[data-b64img]').forEach(function(img){
-      var n = img.getAttribute('data-b64img');
-      if (window.IMGDATA[n]) { img.src = window.IMGDATA[n]; img.removeAttribute('data-b64img'); }
-    });
-    // now load the app
-    var s = document.createElement('script');
-    s.src = 'app.js';
-    document.body.appendChild(s);
-  }
-  if (!names.length) { boot(); return; }
-  names.forEach(function(n){
-    fetch('images-b64/' + n + '.jpg.b64').then(function(r){ return r.text(); }).then(function(b64){
-      window.IMGDATA[n] = 'data:image/' + (mimes[n]||'jpeg') + ';base64,' + b64.trim();
-    }).catch(function(){}).finally(function(){
-      if (++done === names.length) {
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', boot);
-        } else { boot(); }
-      }
-    });
-  });
-})();
-</script>
+<script src="images-a.js"></script>
+<script src="images-b.js"></script>
+<script src="app.js"></script>
 </head>
     
-  <link rel="stylesheet" href="styles.css">
-<script>
-window.IMGDATA = {};
-(function(){
-  var names = ["img0", "img1", "img2"];
-  var mimes = {"img0": "jpeg", "img1": "jpeg", "img2": "jpeg"};
-  var done = 0;
-  function boot(){
-    // set HTML img tags
-    document.querySelectorAll('img[data-b64img]').forEach(function(img){
-      var n = img.getAttribute('data-b64img');
-      if (window.IMGDATA[n]) { img.src = window.IMGDATA[n]; img.removeAttribute('data-b64img'); }
-    });
-    // now load the app
-    var s = document.createElement('script');
-    s.src = 'app.js';
-    document.body.appendChild(s);
-  }
-  if (!names.length) { boot(); return; }
-  names.forEach(function(n){
-    fetch('images-b64/' + n + '.jpg.b64').then(function(r){ return r.text(); }).then(function(b64){
-      window.IMGDATA[n] = 'data:image/' + (mimes[n]||'jpeg') + ';base64,' + b64.trim();
-    }).catch(function(){}).finally(function(){
-      if (++done === names.length) {
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', boot);
-        } else { boot(); }
-      }
-    });
-  });
-})();
-</script>
-</head>
+  
   <body>
     <div class="stage">
       <aside class="stage-copy">
@@ -857,5 +797,16 @@ window.IMGDATA = {};
       </div>
     </div>
     
-  </body>
+  <script>
+(function(){
+  document.querySelectorAll('img[data-b64img]').forEach(function(img){
+    var n = img.getAttribute('data-b64img');
+    if (window.IMGDATA && window.IMGDATA[n]) {
+      img.src = window.IMGDATA[n];
+      img.removeAttribute('data-b64img');
+    }
+  });
+})();
+</script>
+</body>
 </html>
