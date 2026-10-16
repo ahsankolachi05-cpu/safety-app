@@ -350,7 +350,8 @@ function IMGDATA(n){ return (window.IMGDATA||{})[n] || ""; }
       function openClient(id){
         activeClientId = id;
         var c = clientById(id);
-        $("#cd-img").src = SECTOR_IMG[c.sector] || IMGDATA("img1");
+        var _csrc = SECTOR_IMG[c.sector] || IMGDATA("img1");
+        if (_csrc) $("#cd-img").src = _csrc;
         $("#cd-img").alt = esc(c.name) + " site photograph";
         $("#cd-name").textContent = c.name;
         $("#cd-sub").textContent = c.sector + " \u00B7 " + c.town + " \u00B7 client since " + c.since;
